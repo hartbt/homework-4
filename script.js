@@ -64,6 +64,16 @@ function questionAnswered(e){
 
 function QandA(idx){
     displayQuesion.textContent = "Question " + quiz[idx].question
-    for( var i = 0; i < quiz[idx].answers.length; i++)
+    for( var i = 0; i < quiz[idx].answers.length; i++){
+        var newButton = document.createElement("button");
+        newButton.textContent = letters[i];
+        ulTag.appendChild(newButton);
+        newButton.addAttribute("class", "button");
+        newButton.addAttribute("data-answerCorrect", quiz[idx].choices[i])
+        var answer = document.createElement("li");
+        answer.textContent = quiz[idx].choices[i];
+        ulTag.appendChild(answer);
+    }
+
 
 }
