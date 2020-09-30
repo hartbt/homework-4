@@ -43,3 +43,27 @@ function startCountdown(){
         }
     }, 60000)
 }
+
+//starts the timer/quiz
+function startQuiz(e){
+    e.preventDefault();
+    quizContent.style = "display: block"
+
+    startCountdown();
+
+}
+
+function questionAnswered(e){
+    var correctAnswer = quiz[idx].answerCorrect
+    console.log(correctAnswer)
+    var userAnswer = e.target.getAttribute("data-answerCorrect")
+    console.log(userAnswer)
+
+
+}
+
+function QandA(idx){
+    displayQuesion.textContent = "Question " + quiz[idx].question
+    for( var i = 0; i < quiz[idx].answers.length; i++)
+
+}
