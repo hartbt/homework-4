@@ -62,18 +62,20 @@ function questionAnswered(e){
 
 }
 
-function QandA(idx){
+function populateQ(){
     displayQuesion.textContent = "Question " + quiz[idx].question
-    for( var i = 0; i < quiz[idx].answers.length; i++){
+
+
+function populateA(idx)    
+    for( ulTag.childElementCount < quiz[idx].answers.length; i++; ){
         var newButton = document.createElement("button");
-        newButton.textContent = letters[i];
         ulTag.appendChild(newButton);
-        newButton.addAttribute("class", "button");
-        newButton.addAttribute("data-answerCorrect", quiz[idx].choices[i])
-        var answer = document.createElement("li");
-        answer.textContent = quiz[idx].choices[i];
-        ulTag.appendChild(answer);
+        newButton.textContent = letters[i] + " " + quiz[idx].answers[i];
+        newButton.addAttribute("class", "button", [i]);
+        newButton.setAttribute("data-answerCorrect", quiz[idx].choices[i]);  
+    } {
+        var existingButton = document.querySelector(".button" + [i])
+        existingButton.textContent = letter[i] + " " + quiz[idx].choices[i];
+        existingButton.setAttribute("data-answerCorrect", quiz[idx].choices[i])
     }
-
-
 }
