@@ -14,17 +14,17 @@ var idx = 0
 
 var quiz = [
     {
-        question: "Question 1 goes here.",
-        answer: ["Answer1", "Answer2", "Answer3", "Answer4"],
-        answerCorrect: "Answer 2"
+        question: "Who is stupid",
+        answer: ["Answer1", "Nora", "Answer3", "Answer4"],
+        answerCorrect: "Nora"
     }, {
-        question: "Question 1 goes here.",
-        answer: ["Answer1", "Answer2", "Answer3", "Answer4"],
-        answerCorrect: "Answer 2"
+        question: "Who is smart",
+        answer: ["Answer1", "Tessa", "Answer3", "Answer4"],
+        answerCorrect: "Tessa"
     }, {
-        question: "Question 1 goes here.",
-        answer: ["Answer1", "Answer2", "Answer3", "Answer4"],
-        answerCorrect: "Answer 2"
+        question: "Who doesn't know how to use mute",
+        answer: ["Answer1", "Answer2", "Andy", "Answer4"],
+        answerCorrect: "Andy"
     }, {
         question: "Question 1 goes here.",
         answer: ["Answer1", "Answer2", "Answer3", "Answer4"],
@@ -76,10 +76,10 @@ function populateA(idx){
         var newButton = document.createElement("button");
         ulTag.appendChild(newButton);
         newButton.textContent = letters[i] + " " + quiz[idx].answer[i];
-        newButton.setAttribute("class", "button" + [i]);
+        newButton.setAttribute("id", "button" + [i]);
         newButton.setAttribute("data-answer", quiz[idx].answer[i]);  
-    } {
-        var existingButton = document.querySelector(".button" + [i]);
+    } else {
+        var existingButton = document.getElementById("button" + [i]);
         existingButton.textContent = letters[i] + " " + quiz[idx].answer[i];
         existingButton.setAttribute("data-answer", quiz[idx].answer[i]);
     }
@@ -87,10 +87,25 @@ function populateA(idx){
 
 function answerCheck(e){
     e.preventDefault();
-    var userAnswer
-}
+    var userAnswer = e.target.getAttribute("data-answer");
+    console.log(userAnswer);
+    console.log(quiz[idx].answer)
+    if(quiz[idx].answerCorrect == userAnswer){
+      message.textContent = "Correct!";
+      score++;
+   } else {
+      message.textContent = "Incorrect!";
+      counter -= 10;
+    }
+    if(userAnswer){
+      idx++;
+      populateA();
+    }
+  }
 
 
 
 
 start.addEventListener("click", startQuiz);
+
+ulTag.addEventListener("click", answerCheck);
