@@ -14,21 +14,21 @@ var idx = 0
 
 var quiz = [
     {
-        question: "Who is stupid",
-        answer: ["Answer1", "Nora", "Answer3", "Answer4"],
-        answerCorrect: "Nora"
+        question: "HTML and CSS are examples of _____.",
+        answer: ["Extensions", "Languages", "Feet", "Markers"],
+        answerCorrect: "Languages"
     }, {
-        question: "Who is smart",
-        answer: ["Answer1", "Tessa", "Answer3", "Answer4"],
-        answerCorrect: "Tessa"
+        question: "Selecting an ID in CSS would look like ____.",
+        answer: [".id", "#id", "$id", "%id"],
+        answerCorrect: "#id"
     }, {
-        question: "Who doesn't know how to use mute",
-        answer: ["Answer1", "Answer2", "Andy", "Answer4"],
-        answerCorrect: "Andy"
+        question: "A loop in JavaScript is called a ___ loop.",
+        answer: ["function", "tag", "for", "class"],
+        answerCorrect: "for"
     }, {
-        question: "Question 1 goes here.",
-        answer: ["Answer1", "Answer2", "Answer3", "Answer4"],
-        answerCorrect: "Answer 2"
+        question: "Bootstrap does what for javascript?",
+        answer: ["Provides snippets of premade code.", "Completely erase all JS.", "Redo the HTML document.", "Introduce jQuery."],
+        answerCorrect: "Provides snuppets of premade code."
     }
 ]
 
@@ -109,3 +109,6 @@ function answerCheck(e){
 start.addEventListener("click", startQuiz);
 
 ulTag.addEventListener("click", answerCheck);
+
+console.log(idx)
+console.log(quiz[idx])
