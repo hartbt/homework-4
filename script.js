@@ -1,114 +1,201 @@
-// first declare the global variables that will be used within the code
+// selecting elements of the DOM
 
-var start = document.getElementById("startButton")
-var letters = ["A:", "B:", "C:", "D:"];
-var quizContent = document.getElementById("quiz")
-var score = 0
-var message = document.querySelector(".messageArea")
-var displayQuestion = document.querySelector(".questionArea")
-var counter = 60
-var displayCount = document.querySelector(".countDown")
-var ulTag = document.querySelector(".answerArea")
-var button = document.querySelector(".startButton")
-var idx = 0
+var displayTimer = document.querySelector(".timer");
+var container = document.querySelector(".header");
+var begin = document.getElementById("begin");
+var IdOfQuestion = document.getElementById("question");
+var quizBody = document.querySelector(".quizBody");
 
-var quiz = [
-    {
-        question: "HTML and CSS are examples of _____.",
-        answer: ["Extensions", "Languages", "Feet", "Markers"],
-        answerCorrect: "Languages"
-    }, {
-        question: "Selecting an ID in CSS would look like ____.",
-        answer: [".id", "#id", "$id", "%id"],
-        answerCorrect: "#id"
-    }, {
-        question: "A loop in JavaScript is called a ___ loop.",
-        answer: ["function", "tag", "for", "class"],
-        answerCorrect: "for"
-    }, {
-        question: "Bootstrap does what for javascript?",
-        answer: ["Provides snippets of premade code.", "Completely erase all JS.", "Redo the HTML document.", "Introduce jQuery."],
-        answerCorrect: "Provides snuppets of premade code."
+var answerId = document.getElementById("answer");
+
+var messagesToUser = document.getElementById("message");
+var IdOfResults = document.querySelector("#results");
+
+var resultsInitials = document.getElementById("initials");
+
+var resultsScore = document.getElementById("score");
+
+var userScore = document.getElementById("current-score");
+
+var userName = "";
+
+var timeRemaining = 60;
+var score = 0;
+var questionIndexNumber = 0;
+
+var letter = ["A: ", "B: ", "C: ", "D: "];
+var leaderboard = [];
+
+var questionsArray = [
+  {
+    question: "The correct code to generate a random number is ___?",
+    choices: [
+      "function randomNumber(){ randomNumberGiver }",
+      "Gimme random number JavaScript!",
+      "Math.floor(Math.random() * x)",
+      "Gary is not cool",
+    ],
+    answer: "Math.floor(Math.random() * x)",
+  },
+  {
+    question: "The correct format of a function is ___?",
+    choices: [
+      "var function = ()",
+      "function = {}",
+      "var = function()",
+      "function name(){ xyz }",
+    ],
+    answer: "function name(){ xyz }",
+  },
+  {
+    question: "document.getElemenetById allows us to get the ___?",
+    choices: ["Class", "ID", "Placement", "Fun Fact"],
+    answer: "ID",
+  },
+  {
+    question: "What is the purpose of a for loop?",
+    choices: [
+      "Repeatedly execute a piece of code",
+      "Loop through all of your thoughts and feelings",
+      "Discover the purpose of life",
+      "It's the same as an if/else statement",
+    ],
+    answer: "Repeatedly execute a piece of code",
+  },
+];
+
+function startTimer() {
+  var countDown = setInterval(function () {
+    timeRemaining--;
+    displayTimer.textContent = timeRemaining + " seconds remaining";
+
+    if (timeRemaining === 0) {
+      clearInterval(countDown);
+      timeRemaining.textContent = "All done!";
+      scoreFinal();
     }
-]
-
-// function for the timer
-function startCountdown(){
-    var countDown = setInterval(function(){
-        counter--;
-        displayCount.textContent = counter + "  seconds left."
-
-        if ( counter == 0 ){
-            clearInterval(countDown)
-        }
-    }, 1000)
+  }, 1000);
 }
 
-//starts the timer/quiz
-function startQuiz(e){
-    e.preventDefault();
-    quizContent.style.display = "block"
-
-    startCountdown();
-    populateQ();
-    console.log(startQuiz)
-
-
+function startQuiz(e) {
+  e.preventDefault(e);
+  container.style.display = "none";
+  quizBody.style.display = "block";
+  startTimer();
+  startQuestions();
 }
 
-function questionAnswered(e){
-    var correctAnswer = quiz[idx].answerCorrect
-    console.log(correctAnswer)
-    
-    console.log(userAnswer)
-
-
+function startQuestions() {
+  console.log(questionIndexNumber);
+  if (questionIndexNumber === questionsArray.length) {
+    scoreFinal();
+  } else {
+    IdOfQuestion.textContent =
+      "Question: " + questionsArray[questionIndexNumber].question;
+    startingChoices(questionIndexNumber);
+  }
 }
 
-function populateQ(){
-    displayQuestion.textContent = "Question " + quiz[idx].question
-    populateA(idx)
-
-}
-function populateA(idx){    
-    for ( var i = 0; i < quiz[idx].answer.length; i++ )
-        if ( ulTag.childElementCount < quiz[idx].answer.length ){
-        var newButton = document.createElement("button");
-        ulTag.appendChild(newButton);
-        newButton.textContent = letters[i] + " " + quiz[idx].answer[i];
-        newButton.setAttribute("id", "button" + [i]);
-        newButton.setAttribute("data-answer", quiz[idx].answer[i]);  
+function startingChoices(questionIndexNumber) {
+  for (var i = 0; i < questionsArray[questionIndexNumber].choices.length; i++) {
+    if (
+      IdOfQuestion.childElementCount <
+      questionsArray[questionIndexNumber].choices.length
+    ) {
+      var newButton = document.createElement("button");
+      IdOfQuestion.appendChild(newButton);
+      newButton.textContent =
+        letter[i] + " " + questionsArray[questionIndexNumber].choices[i];
+      newButton.setAttribute("class", "button" + [i]);
+      newButton.setAttribute("class", "col-12");
+      newButton.setAttribute(
+        "data-answer",
+        questionsArray[questionIndexNumber].choices[i]
+      );
     } else {
-        var existingButton = document.getElementById("button" + [i]);
-        existingButton.textContent = letters[i] + " " + quiz[idx].answer[i];
-        existingButton.setAttribute("data-answer", quiz[idx].answer[i]);
-    }
-}
-
-function answerCheck(e){
-    e.preventDefault();
-    var userAnswer = e.target.getAttribute("data-answer");
-    console.log(userAnswer);
-    console.log(quiz[idx].answer)
-    if(quiz[idx].answerCorrect == userAnswer){
-      message.textContent = "Correct!";
-      score++;
-   } else {
-      message.textContent = "Incorrect!";
-      counter -= 10;
-    }
-    if(userAnswer){
-      idx++;
-      populateA();
+      var preexistingButton = document.querySelector(".button" + [i]);
+      preexistingButton.textContent =
+        letter[i] + " " + questionsArray[questionIndexNumber].choices[i];
+      preexistingButton.setAttribute(
+        "data-answer",
+        questionsArray[questionIndexNumber].choices[i]
+      );
     }
   }
+}
 
+function checkAnswer(e) {
+  e.preventDefault();
+  var userAnswer = e.target.getAttribute("data-answer");
 
+  if (questionsArray[questionIndexNumber].answer == userAnswer) {
+    message.textContent = "You got it!";
+    message.setAttribute("class", "correct");
+    score++;
+  } else {
+    message.textContent = "You don't got it!";
+    message.setAttribute("class", "incorrect");
+    timeRemaining -= 5;
+  }
 
+  if (userAnswer) {
+    questionIndexNumber++;
+    console.log(questionIndexNumber);
+    userScore.textContent = "Current score: " + score;
+    startQuestions();
+  }
+}
 
-start.addEventListener("click", startQuiz);
+function scoreFinal() {
+  IdOfQuestion.style.display = "none";
+  var initials = prompt("Please enter your initials.");
+  displayTimer.style.display = "none";
+  messagesToUser.style.display = "none";
+  userScore.style.display = "none";
+  container.textContent = initials + " " + score;
+  IdOfResults.style.display = "block";
 
-ulTag.addEventListener("click", answerCheck);
+  var previousPlayers = JSON.parse(localStorage.getItem("players"));
+  var currentPlayer = {
+    player: initials,
+    playerScore: score,
+  };
+  leaderboard.push(currentPlayer);
+  if (previousPlayers != null) {
+    for (var l = 0; l < previousPlayers.length; l++) {
+      leaderboard.push(previousPlayers[l]);
+    }
+  } else {
+    var first = document.createElement("h4");
+    first.classList.add("col-md-6");
+    first.classList.add("yourefirst");
+    first.textContent = "You're the first! Don't mess up.";
+    IdOfQuestion.insertAdjacentElement("afterend", first);
+  }
 
-console.log(idx)
-console.log(quiz[idx])
+  localStorage.setItem("players", JSON.stringify(leaderboard));
+  leaderboard.sort((a, b) => (a.playerScore < b.playerScore ? 1 : -1));
+  var ul = document.createElement("ul");
+  ul.classList.add("col-md-6");
+  ul.classList.add("topThree");
+  var liOne = document.createElement("li");
+  liOne.textContent =
+    leaderboard[0].player + " " + leaderboard[0]["playerScore"];
+  var liTwo = document.createElement("li");
+  liTwo.textContent =
+    leaderboard[1].player + " " + leaderboard[1]["playerScore"];
+  ul.appendChild(liOne);
+  ul.appendChild(liTwo);
+  if (leaderboard[2] != null) {
+    var liThree = document.createElement("li");
+    liThree.textContent =
+      leaderboard[2].player + " " + leaderboard[2]["playerScore"];
+    ul.appendChild(liThree);
+  }
+
+  IdOfQuestion.insertAdjacentElement("afterend", ul);
+}
+
+begin.addEventListener("click", startQuiz);
+
+IdOfQuestion.addEventListener("click", checkAnswer);

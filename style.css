@@ -1,0 +1,55 @@
+header.container {
+    margin: 80px
+}
+
+
+p {
+    text-align: center;
+}
+
+.countdown {
+    text-align: right;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.two {
+    margin: 100px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+body {
+    background-color: navajowhite;
+    font-family: monospace;
+}
+
+button {
+    background-color: rgb(53, 54, 58);
+    color: white
+}
+
+#begin {
+    background-color: rgb(53, 54, 58);
+    color: white;
+}
+
+#message {
+    font-size: 50px;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+#startText {
+    font-size: 25px;
+}
