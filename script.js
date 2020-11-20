@@ -15,7 +15,7 @@ var resultsInitials = document.getElementById("initials");
 
 var resultsScore = document.getElementById("score");
 
-var userScore = document.getElementById("current-score");
+var userScore = document.getElementById("currentScore");
 
 var userName = "";
 
@@ -62,6 +62,13 @@ var questionsArray = [
     ],
     answer: "Repeatedly execute a piece of code",
   },
+  {
+      question: "Did you enjoy this quiz?",
+      choices: [
+          "Yes, it was great!", "No, I hated it!"
+      ],
+      answer: "Yes, it was great!"
+  }
 ];
 
 function startTimer() {

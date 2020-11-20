@@ -50,6 +50,6 @@ button {
     color: red;
 }
 
-#startText {
+#startText, #currentScore, #scoreArea {
     font-size: 25px;
 }
